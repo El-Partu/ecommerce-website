@@ -1,6 +1,6 @@
 import { IoSunnyOutline } from "react-icons/io5";
 import { IoSunny } from "react-icons/io5";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { CiSearch } from "react-icons/ci";
 // import { useRef } from "react";
@@ -9,15 +9,21 @@ import { IoMdClose } from "react-icons/io";
 import { useState } from "react";
 import { FaHeart } from "react-icons/fa";
 import { FaCartShopping } from "react-icons/fa6";
+import { useDarkMode } from "../../utils/customHook";
+import { toggleThemeButton } from "../../Global State/theme/themeProvider";
 function Navbar() {
   const { darkMode } = useSelector((store) => store.theme);
   const [openMenu, setOpenMenu] = useState(false);
+  const dispatch = useDispatch();
+  useDarkMode();
   return (
-    <div className={`${openMenu ? "pt-0" : "pt-[8vh]"} md:pt-[13vh]`}>
+    <div className={`${openMenu ? "pt-0" : "pt-[8vh]"} md:pt-[13vh] `}>
       <header
         className={`flex bg-[#fff] md:h-[12vh] justify-between ${
           openMenu ? "relative z-50 top-0" : "fixed w-full top-0"
-        } items-center px-1 drop-shadow-md pt-6 pb-2`}
+        } items-center px-1 drop-shadow-md pt-6 pb-2 ${
+          darkMode === "dark" ? "bg-slate-900 text-white" : ""
+        }`}
       >
         <nav className="flex justify-between  w-full md:w-[90%] md:ml-auto mr-auto  ">
           <h1 className="text-xl z-50  static">Exclusive</h1>
@@ -28,25 +34,25 @@ function Navbar() {
           >
             <NavLink
               to="/"
-              className="block hover:bg-white hover:text-blue-800 hover:w-full text-center md:inline md:hover:w-auto md:hover:scale-125"
+              className="block hover:bg-white hover:text-blue-800 hover:w-full text-center md:inline md:hover:w-auto md:hover:scale-125 md:hover:bg-transparent"
             >
               Home
             </NavLink>
             <NavLink
               to="/contact"
-              className="block hover:bg-white hover:text-blue-800 hover:w-full text-center md:inline md:hover:w-auto md:hover:scale-125"
+              className="block hover:bg-white hover:text-blue-800 hover:w-full text-center md:inline md:hover:w-auto md:hover:scale-125 md:hover:bg-transparent"
             >
               Contact
             </NavLink>
             <NavLink
               to="/about"
-              className="block hover:bg-white hover:text-blue-800 hover:w-full text-center md:inline md:hover:w-auto md:text-auto md:hover:scale-125"
+              className="block hover:bg-white hover:text-blue-800 hover:w-full text-center md:inline md:hover:w-auto md:text-auto md:hover:scale-125 md:hover:bg-transparent"
             >
               About
             </NavLink>
             <NavLink
               to="/login"
-              className="block hover:bg-white hover:text-blue-800 hover:w-full text-center md:inline md:hover:w-auto md:hover:scale-125"
+              className="block hover:bg-white hover:text-blue-800 hover:w-full text-center md:inline md:hover:w-auto md:hover:scale-125 md:hover:bg-transparent"
             >
               Login
             </NavLink>
@@ -62,7 +68,12 @@ function Navbar() {
                 0
               </span>
               <NavLink>
-                <FaHeart className="text-[#533c3c]" size={22} />
+                <FaHeart
+                  className={`${
+                    darkMode === "dark" ? "text-white" : "text-[#533c3c] "
+                  }`}
+                  size={22}
+                />
               </NavLink>
             </div>
             <div className="flex relative items-center">
@@ -70,11 +81,20 @@ function Navbar() {
                 0
               </span>
               <NavLink>
-                <FaCartShopping className="text-[#533c3c]" size={22} />
+                <FaCartShopping
+                  className={`${
+                    darkMode === "dark" ? "text-white" : "text-[#533c3c] "
+                  }`}
+                  size={22}
+                />
               </NavLink>
             </div>
-            <button>
-              {darkMode ? <IoSunnyOutline size={22} /> : <IoSunny size={22} />}
+            <button onClick={() => dispatch(toggleThemeButton())}>
+              {darkMode === "dark" ? (
+                <IoSunnyOutline size={22} />
+              ) : (
+                <IoSunny size={22} />
+              )}
             </button>
             <button
               className="md:hidden"
