@@ -1,11 +1,9 @@
-import Navbar from "../component/Navbar";
+import Navbar from "../Components/Navbar/Navbar";
 
 function RootLayout() {
   return (
     <section className="">
-      <header className="">
-        <Navbar />
-      </header>
+      <Navbar />
     </section>
   );
 }
