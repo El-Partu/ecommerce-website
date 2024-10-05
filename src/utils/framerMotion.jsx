@@ -1,22 +1,22 @@
 export const menuVariants = {
   hidden: {
-    x: "-100%", // Start offscreen to the left
-    opacity: 0, // Start invisible
+    x: "-100%",
+    opacity: 0,
   },
   visible: {
-    x: 0, // Move into view
-    opacity: 1, // Become visible
+    x: 0,
+    opacity: 1,
     transition: {
-      type: "spring", // Use spring animation
-      stiffness: 100, // Bouncy effect
-      damping: 20,
+      type: "tween",
+      ease: "easeInOut",
+      duration: 0.5,
     },
   },
   exit: {
-    x: "-100%", // Exit by sliding back out to the left
-    opacity: 0, // Fade out while sliding
+    x: "-100%",
+    opacity: 0,
     transition: {
-      duration: 0.3, // Faster exit
+      duration: 0.3,
     },
   },
 };
