@@ -42,6 +42,7 @@ function Navbar() {
             )}
           </button>
           <h1 className="text-xl   static">Exclusive</h1>
+          {/* mobile navigations*/}
           <AnimatePresence>
             {openMenu && (
               <motion.div
@@ -51,32 +52,33 @@ function Navbar() {
                 exit="exit"
                 className={`${
                   openMenu ? "block" : "hidden"
-                } absolute h-screen left-0 top-0 bg-slate-900 w-full min-h-40 flex flex-col items-end z-20 duration-75   md:z-0  md:flex-row md:flex md:w-[50%] md:justify-between md:min-h-0 md:static p-1 md:bg-transparent `}
+                } absolute h-screen left-0 top-0 bg-slate-900 w-full min-h-40 flex flex-col items-end z-20 duration-75  md:hidden `}
               >
                 <div className=" h-[50vh] w-full flex flex-col justify-evenly text-lg mt-10 text-left">
                   <NavLink
                     to="/"
-                    className="block hover:bg-white hover:text-blue-800 hover:w-full text-center md:inline md:hover:w-auto md:hover:scale-125 md:hover:bg-transparent text-white"
+                    className="block hover:bg-white hover:text-blue-800 hover:w-full text-center text-white"
                     onClick={() => setOpenMenu(false)}
                   >
                     Home
                   </NavLink>
                   <NavLink
                     to="/contact"
-                    className="block hover:bg-white hover:text-blue-800 hover:w-full text-center md:inline md:hover:w-auto md:hover:scale-125 md:hover:bg-transparent text-white"
+                    className="block hover:bg-white hover:text-blue-800 hover:w-full text-center text-white"
                     onClick={() => setOpenMenu(false)}
                   >
                     Contact
                   </NavLink>
                   <NavLink
                     to="/about"
-                    className="block hover:bg-white hover:text-blue-800 hover:w-full text-center md:inline md:hover:w-auto md:text-auto md:hover:scale-125 md:hover:bg-transparent text-white"
+                    className="block hover:bg-white hover:text-blue-800 hover:w-full text-center md:hidden text-white"
+                    onClick={() => setOpenMenu(false)}
                   >
                     About
                   </NavLink>
                   <NavLink
                     to="/login"
-                    className="block hover:bg-white hover:text-blue-800 hover:w-full text-center md:inline md:hover:w-auto md:hover:scale-125 md:hover:bg-transparent text-white"
+                    className="block hover:bg-white hover:text-blue-800 hover:w-full text-center text-white"
                     onClick={() => setOpenMenu(false)}
                   >
                     Login
@@ -85,11 +87,38 @@ function Navbar() {
               </motion.div>
             )}
           </AnimatePresence>
+
+          {/* Large screen navigation */}
+          <div className={` hidden md:block md:text-black md:w-[50%]`}>
+            <div className="w-full flex text-black justify-around">
+              <NavLink to="/" className=" hover:scale-125 hover:text-blue-800">
+                Home
+              </NavLink>
+              <NavLink
+                to="/contact"
+                className=" hover:scale-125 hover:text-blue-800"
+              >
+                Contact
+              </NavLink>
+              <NavLink
+                to="/about"
+                className=" hover:scale-125 hover:text-blue-800"
+              >
+                About
+              </NavLink>
+              <NavLink
+                to="/login"
+                className=" hover:scale-125 hover:text-blue-800"
+              >
+                Login
+              </NavLink>
+            </div>
+          </div>
           <div className="hidden">
             <input type="text" className="" />
             <CiSearch className="" />
           </div>
-          <div className="flex justify-between min-w-40  md pr-2">
+          <div className="flex justify-between min-w-40  md pr-2 md:w-[25%]">
             <div className="flex relative items-center">
               <span className="absolute left-[14px] border-[3px]  w-[25px] h-[25px] text-center text-wrap rounded-[50%] bottom-[14px]  pb-6 border-red-700 bg-red-700 text-white">
                 0
