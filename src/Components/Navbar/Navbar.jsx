@@ -11,6 +11,8 @@ import { FaHeart } from "react-icons/fa";
 import { FaCartShopping } from "react-icons/fa6";
 import { useDarkMode } from "../../utils/customHook";
 import { toggleThemeButton } from "../../Global State/theme/themeProvider";
+import { AnimatePresence, motion } from "framer-motion";
+import { menuVariants } from "../../utils/framerMotion";
 function Navbar() {
   const { darkMode } = useSelector((store) => store.theme);
   const [openMenu, setOpenMenu] = useState(false);
@@ -25,39 +27,64 @@ function Navbar() {
           darkMode === "dark" ? "bg-slate-900 text-white" : ""
         }`}
       >
-        <nav className="flex justify-between  w-full md:w-[90%] md:ml-auto mr-auto  ">
-          <h1 className="text-xl z-50  static">Exclusive</h1>
-          <div
-            className={`${
-              openMenu ? "block" : "hidden"
-            } absolute left-0 top-14 bg-slate-300 w-full min-h-40 flex flex-col items-center justify-around z-50 duration-75   md:z-0  md:flex-row md:flex md:w-[50%] md:justify-between md:min-h-0 md:static p-1 md:bg-transparent `}
+        <nav className="flex justify-between  w-[95%] md:w-[90%] ml-auto mr-auto  ">
+          <button
+            className="md:hidden "
+            onClick={() => setOpenMenu((prev) => !prev)}
           >
-            <NavLink
-              to="/"
-              className="block hover:bg-white hover:text-blue-800 hover:w-full text-center md:inline md:hover:w-auto md:hover:scale-125 md:hover:bg-transparent"
-            >
-              Home
-            </NavLink>
-            <NavLink
-              to="/contact"
-              className="block hover:bg-white hover:text-blue-800 hover:w-full text-center md:inline md:hover:w-auto md:hover:scale-125 md:hover:bg-transparent"
-            >
-              Contact
-            </NavLink>
-            <NavLink
-              to="/about"
-              className="block hover:bg-white hover:text-blue-800 hover:w-full text-center md:inline md:hover:w-auto md:text-auto md:hover:scale-125 md:hover:bg-transparent"
-            >
-              About
-            </NavLink>
-            <NavLink
-              to="/login"
-              className="block hover:bg-white hover:text-blue-800 hover:w-full text-center md:inline md:hover:w-auto md:hover:scale-125 md:hover:bg-transparent"
-            >
-              Login
-            </NavLink>
-          </div>
-
+            {openMenu ? (
+              <IoMdClose
+                size={30}
+                className=" z-40 absolute top-4  right-6 text-white"
+              />
+            ) : (
+              <GiHamburgerMenu size={22} />
+            )}
+          </button>
+          <h1 className="text-xl   static">Exclusive</h1>
+          <AnimatePresence>
+            {openMenu && (
+              <motion.div
+                variants={menuVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                className={`${
+                  openMenu ? "block" : "hidden"
+                } absolute h-screen left-0 top-0 bg-slate-900 w-full min-h-40 flex flex-col items-end z-20 duration-75   md:z-0  md:flex-row md:flex md:w-[50%] md:justify-between md:min-h-0 md:static p-1 md:bg-transparent `}
+              >
+                <div className=" h-[50vh] w-full flex flex-col justify-evenly text-lg mt-10 text-left">
+                  <NavLink
+                    to="/"
+                    className="block hover:bg-white hover:text-blue-800 hover:w-full text-center md:inline md:hover:w-auto md:hover:scale-125 md:hover:bg-transparent text-white"
+                    onClick={() => setOpenMenu(false)}
+                  >
+                    Home
+                  </NavLink>
+                  <NavLink
+                    to="/contact"
+                    className="block hover:bg-white hover:text-blue-800 hover:w-full text-center md:inline md:hover:w-auto md:hover:scale-125 md:hover:bg-transparent text-white"
+                    onClick={() => setOpenMenu(false)}
+                  >
+                    Contact
+                  </NavLink>
+                  <NavLink
+                    to="/about"
+                    className="block hover:bg-white hover:text-blue-800 hover:w-full text-center md:inline md:hover:w-auto md:text-auto md:hover:scale-125 md:hover:bg-transparent text-white"
+                  >
+                    About
+                  </NavLink>
+                  <NavLink
+                    to="/login"
+                    className="block hover:bg-white hover:text-blue-800 hover:w-full text-center md:inline md:hover:w-auto md:hover:scale-125 md:hover:bg-transparent text-white"
+                    onClick={() => setOpenMenu(false)}
+                  >
+                    Login
+                  </NavLink>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
           <div className="hidden">
             <input type="text" className="" />
             <CiSearch className="" />
@@ -94,16 +121,6 @@ function Navbar() {
                 <IoSunnyOutline size={22} />
               ) : (
                 <IoSunny size={22} />
-              )}
-            </button>
-            <button
-              className="md:hidden"
-              onClick={() => setOpenMenu((prev) => !prev)}
-            >
-              {openMenu ? (
-                <IoMdClose size={22} />
-              ) : (
-                <GiHamburgerMenu size={22} />
               )}
             </button>
           </div>
